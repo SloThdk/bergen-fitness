@@ -21,6 +21,31 @@ h1, h2, h3, h4 {
   font-family: var(--font-syne), sans-serif;
 }
 
+/* ── Cursor: pointer on everything interactive ── */
+button,
+a,
+[role="button"],
+[role="tab"],
+[role="checkbox"],
+[role="radio"],
+select,
+label[for],
+.clickable {
+  cursor: pointer;
+}
+
+/* ── Button reset ── */
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+/* ── Smooth transitions on interactive elements ── */
+button, a {
+  transition: opacity 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
 .demo-badge {
   display: inline-flex;
   align-items: center;
@@ -48,11 +73,9 @@ h1, h2, h3, h4 {
 }
 
 .section-reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  opacity: 1;
+  transform: translateY(0);
 }
-
 .section-reveal.visible {
   opacity: 1;
   transform: translateY(0);
