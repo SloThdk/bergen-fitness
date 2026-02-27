@@ -184,6 +184,13 @@ export default function BergenFitness() {
   const [authEmail, setAuthEmail] = useState('');
   const [authPassword, setAuthPassword] = useState('');
   const [authDone, setAuthDone] = useState(false);
+  const [authErrors, setAuthErrors] = useState<{ name?: string; email?: string; password?: string }>({});
+  const [trainerName, setTrainerName] = useState('');
+  const [trainerEmail, setTrainerEmail] = useState('');
+  const [trainerErrors, setTrainerErrors] = useState<{ name?: string; email?: string }>({});
+  const [classBookName, setClassBookName] = useState('');
+  const [classBookEmail, setClassBookEmail] = useState('');
+  const [classBookErrors, setClassBookErrors] = useState<{ name?: string; email?: string }>({});
   const [trainerModal, setTrainerModal] = useState<typeof TRENERE[0] | null>(null);
   const [trainerBooked, setTrainerBooked] = useState(false);
   const [toast, setToast] = useState('');
@@ -191,11 +198,21 @@ export default function BergenFitness() {
   const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(''), 3500); };
 
   const openAuth = (mode: 'join' | 'signin' = 'join') => {
-    setAuthMode(mode); setAuthDone(false); setAuthName(''); setAuthEmail(''); setAuthPassword('');
+    setAuthMode(mode); setAuthDone(false); setAuthName(''); setAuthEmail(''); setAuthPassword(''); setAuthErrors({});
     setAuthModal(true);
   };
 
-  const handleAuthSubmit = (e: React.FormEvent) => { e.preventDefault(); setAuthDone(true); };
+  const handleAuthSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const errs: { name?: string; email?: string; password?: string } = {};
+    if (authMode === 'join' && !authName.trim()) errs.name = 'Feltet er obligatorisk';
+    if (!authEmail.trim()) errs.email = 'Feltet er obligatorisk';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(authEmail.trim())) errs.email = 'Ugyldig e-postadresse';
+    if (!authPassword.trim()) errs.password = 'Feltet er obligatorisk';
+    if (Object.keys(errs).length) { setAuthErrors(errs); return; }
+    setAuthErrors({});
+    setAuthDone(true);
+  };
 
   const handleBook = (cls: { name: string; trainer: string; time: string; spots: number }) => {
     if (cls.spots === 0) return;
@@ -241,7 +258,7 @@ export default function BergenFitness() {
               <>
                 <div style={{ display: 'flex', gap: '8px', marginBottom: '28px' }}>
                   {(['join', 'signin'] as const).map(m => (
-                    <button key={m} onClick={() => setAuthMode(m)}
+                    <button key={m} onClick={() => { setAuthMode(m); setAuthErrors({}); }}
                       style={{ flex: 1, padding: '10px', borderRadius: '8px', fontSize: '14px', fontWeight: 600, background: authMode === m ? 'var(--orange)' : 'rgba(255,255,255,0.05)', color: '#fff', border: 'none', cursor: 'pointer' }}>
                       {m === 'join' ? 'Bli Medlem' : 'Logg inn'}
                     </button>
@@ -249,13 +266,22 @@ export default function BergenFitness() {
                 </div>
                 <form onSubmit={handleAuthSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   {authMode === 'join' && (
-                    <input type="text" placeholder="Ditt navn" value={authName} onChange={e => setAuthName(e.target.value)} required
-                      style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '12px 14px', color: '#fff', fontSize: '14px', outline: 'none' }} />
+                    <div>
+                      <input type="text" placeholder="Ditt navn" value={authName} onChange={e => { setAuthName(e.target.value); setAuthErrors(prev => ({ ...prev, name: undefined })); }}
+                        style={{ background: 'rgba(255,255,255,0.05)', border: authErrors.name ? '1px solid #DC2626' : '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '12px 14px', color: '#fff', fontSize: '14px', outline: 'none', width: '100%', boxSizing: 'border-box' as const }} />
+                      {authErrors.name && <p style={{ fontSize: '12px', color: '#DC2626', marginTop: '4px' }}>{authErrors.name}</p>}
+                    </div>
                   )}
-                  <input type="email" placeholder="E-postadresse" value={authEmail} onChange={e => setAuthEmail(e.target.value)} required
-                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '12px 14px', color: '#fff', fontSize: '14px', outline: 'none' }} />
-                  <input type="password" placeholder="Passord" value={authPassword} onChange={e => setAuthPassword(e.target.value)} required
-                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '12px 14px', color: '#fff', fontSize: '14px', outline: 'none' }} />
+                  <div>
+                    <input type="email" placeholder="E-postadresse" value={authEmail} onChange={e => { setAuthEmail(e.target.value); setAuthErrors(prev => ({ ...prev, email: undefined })); }}
+                      style={{ background: 'rgba(255,255,255,0.05)', border: authErrors.email ? '1px solid #DC2626' : '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '12px 14px', color: '#fff', fontSize: '14px', outline: 'none', width: '100%', boxSizing: 'border-box' as const }} />
+                    {authErrors.email && <p style={{ fontSize: '12px', color: '#DC2626', marginTop: '4px' }}>{authErrors.email}</p>}
+                  </div>
+                  <div>
+                    <input type="password" placeholder="Passord" value={authPassword} onChange={e => { setAuthPassword(e.target.value); setAuthErrors(prev => ({ ...prev, password: undefined })); }}
+                      style={{ background: 'rgba(255,255,255,0.05)', border: authErrors.password ? '1px solid #DC2626' : '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '12px 14px', color: '#fff', fontSize: '14px', outline: 'none', width: '100%', boxSizing: 'border-box' as const }} />
+                    {authErrors.password && <p style={{ fontSize: '12px', color: '#DC2626', marginTop: '4px' }}>{authErrors.password}</p>}
+                  </div>
                   <button type="submit" style={{ background: 'var(--orange)', color: '#fff', borderRadius: '8px', padding: '13px', fontWeight: 700, fontSize: '15px', marginTop: '6px', border: 'none', cursor: 'pointer' }}>
                     {authMode === 'join' ? 'Start gratis proveperiode' : 'Logg inn'}
                   </button>
@@ -270,9 +296,9 @@ export default function BergenFitness() {
       {/* TRAINER MODAL */}
       {trainerModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}
-          onClick={e => e.target === e.currentTarget && (setTrainerModal(null), setTrainerBooked(false))}>
+          onClick={e => e.target === e.currentTarget && (setTrainerModal(null), setTrainerBooked(false), setTrainerName(''), setTrainerEmail(''), setTrainerErrors({}))}>
           <div style={{ background: 'var(--navy-mid)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '36px', width: '100%', maxWidth: '440px', position: 'relative' }}>
-            <button onClick={() => { setTrainerModal(null); setTrainerBooked(false); }} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer', fontSize: '20px' }}>x</button>
+            <button onClick={() => { setTrainerModal(null); setTrainerBooked(false); setTrainerName(''); setTrainerEmail(''); setTrainerErrors({}); }} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer', fontSize: '20px' }}>x</button>
             {trainerBooked ? (
               <div style={{ textAlign: 'center' }}>
                 <div style={{ width: '56px', height: '56px', background: 'rgba(232,93,4,0.12)', borderRadius: '50%', margin: '0 auto 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -282,7 +308,7 @@ export default function BergenFitness() {
                 <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '14px', lineHeight: 1.65 }}>
                   Demo: Din PT-time med <strong>{trainerModal.name}</strong> er forespurt. I produksjon bekreftes den via e-post innen 2 timer.
                 </p>
-                <button onClick={() => { setTrainerModal(null); setTrainerBooked(false); }}
+                <button onClick={() => { setTrainerModal(null); setTrainerBooked(false); setTrainerName(''); setTrainerEmail(''); setTrainerErrors({}); }}
                   style={{ marginTop: '20px', background: 'var(--orange)', color: '#fff', borderRadius: '8px', padding: '10px 28px', fontWeight: 700, border: 'none', cursor: 'pointer' }}>Lukk</button>
               </div>
             ) : (
@@ -290,8 +316,16 @@ export default function BergenFitness() {
                 <div style={{ fontFamily: 'var(--font-syne)', fontSize: '20px', fontWeight: 700, marginBottom: '4px' }}>Bestill en time</div>
                 <div style={{ color: 'var(--orange-light)', fontSize: '13px', marginBottom: '24px' }}>med {trainerModal.name}</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <input type="text" placeholder="Ditt navn" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none' }} />
-                  <input type="email" placeholder="Din e-post" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none' }} />
+                  <div>
+                    <input type="text" placeholder="Ditt navn" value={trainerName} onChange={e => { setTrainerName(e.target.value); setTrainerErrors(prev => ({ ...prev, name: undefined })); }}
+                      style={{ background: 'rgba(255,255,255,0.05)', border: trainerErrors.name ? '1px solid #DC2626' : '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none', width: '100%', boxSizing: 'border-box' as const }} />
+                    {trainerErrors.name && <p style={{ fontSize: '12px', color: '#DC2626', marginTop: '4px' }}>{trainerErrors.name}</p>}
+                  </div>
+                  <div>
+                    <input type="email" placeholder="Din e-post" value={trainerEmail} onChange={e => { setTrainerEmail(e.target.value); setTrainerErrors(prev => ({ ...prev, email: undefined })); }}
+                      style={{ background: 'rgba(255,255,255,0.05)', border: trainerErrors.email ? '1px solid #DC2626' : '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none', width: '100%', boxSizing: 'border-box' as const }} />
+                    {trainerErrors.email && <p style={{ fontSize: '12px', color: '#DC2626', marginTop: '4px' }}>{trainerErrors.email}</p>}
+                  </div>
                   <select style={{ background: 'var(--navy-mid)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none' }}>
                     <option>Foretrukket tid: Morgen (6-12)</option>
                     <option>Foretrukket tid: Ettermiddag (12-17)</option>
@@ -302,7 +336,15 @@ export default function BergenFitness() {
                     <option>Timetype: Kartlegging + Program (90 min)</option>
                     <option>Timetype: Kostholdsradgivning (45 min)</option>
                   </select>
-                  <button onClick={() => setTrainerBooked(true)}
+                  <button onClick={() => {
+                    const errs: { name?: string; email?: string } = {};
+                    if (!trainerName.trim()) errs.name = 'Feltet er obligatorisk';
+                    if (!trainerEmail.trim()) errs.email = 'Feltet er obligatorisk';
+                    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trainerEmail.trim())) errs.email = 'Ugyldig e-postadresse';
+                    if (Object.keys(errs).length) { setTrainerErrors(errs); return; }
+                    setTrainerErrors({}); setTrainerName(''); setTrainerEmail('');
+                    setTrainerBooked(true);
+                  }}
                     style={{ background: 'var(--orange)', color: '#fff', borderRadius: '8px', padding: '13px', fontWeight: 700, fontSize: '15px', marginTop: '4px', cursor: 'pointer', border: 'none' }}>
                     Send forespursel
                   </button>
@@ -316,9 +358,9 @@ export default function BergenFitness() {
       {/* CLASS BOOKING MODAL */}
       {bookingClass && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}
-          onClick={e => e.target === e.currentTarget && setBookingClass(null)}>
+          onClick={e => e.target === e.currentTarget && (setBookingClass(null), setClassBookName(''), setClassBookEmail(''), setClassBookErrors({}))}>
           <div style={{ background: 'var(--navy-mid)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '36px', width: '100%', maxWidth: '420px', position: 'relative' }}>
-            <button onClick={() => setBookingClass(null)} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer', fontSize: '20px' }}>x</button>
+            <button onClick={() => { setBookingClass(null); setClassBookName(''); setClassBookEmail(''); setClassBookErrors({}); }} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer', fontSize: '20px' }}>x</button>
             <div style={{ fontFamily: 'var(--font-syne)', fontSize: '20px', fontWeight: 700, marginBottom: '16px' }}>Bekreft bestilling</div>
             <div style={{ background: 'rgba(232,93,4,0.08)', border: '1px solid rgba(232,93,4,0.2)', borderRadius: '10px', padding: '16px', marginBottom: '20px' }}>
               <div style={{ fontWeight: 600, fontSize: '15px' }}>{bookingClass}</div>
@@ -327,7 +369,15 @@ export default function BergenFitness() {
               <input type="text" placeholder="Ditt navn" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none' }} />
               <input type="email" placeholder="Din e-post" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none' }} />
             </div>
-            <button onClick={confirmBook} style={{ width: '100%', background: 'var(--orange)', color: '#fff', borderRadius: '8px', padding: '13px', fontWeight: 700, fontSize: '15px', border: 'none', cursor: 'pointer' }}>
+            <button onClick={() => {
+              const errs: { name?: string; email?: string } = {};
+              if (!classBookName.trim()) errs.name = 'Feltet er obligatorisk';
+              if (!classBookEmail.trim()) errs.email = 'Feltet er obligatorisk';
+              else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(classBookEmail.trim())) errs.email = 'Ugyldig e-postadresse';
+              if (Object.keys(errs).length) { setClassBookErrors(errs); return; }
+              setClassBookErrors({}); setClassBookName(''); setClassBookEmail('');
+              confirmBook();
+            }} style={{ width: '100%', background: 'var(--orange)', color: '#fff', borderRadius: '8px', padding: '13px', fontWeight: 700, fontSize: '15px', border: 'none', cursor: 'pointer' }}>
               Bekreft bestilling
             </button>
           </div>
