@@ -15,8 +15,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Bergen Fitness | Train Harder. Live Stronger.",
-  description: "Premium gym and fitness center in Bergen. Membership plans, group classes, and world-class trainers.",
+  title: "Bergen Fitness | Trening uten kompromiss",
+  description: "Bergens fremste treningssenter. Treningsabonnement, gruppetimer og eksperttrenere. Apent 24/7.",
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="no">
       <body className={`${syne.variable} ${dmSans.variable} antialiased`}>
         {children}
       </body>
