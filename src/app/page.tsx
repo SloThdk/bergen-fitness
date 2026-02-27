@@ -27,7 +27,7 @@ const KLASSER = [
   {
     day: 'Tirsdag',
     schedule: [
-      { time: '07:00', name: 'Morgenokт', trainer: 'Mads Berg', duration: '60 min', spots: 6, icon: Flame },
+      { time: '07:00', name: 'Morgenokt', trainer: 'Mads Berg', duration: '60 min', spots: 6, icon: Flame },
       { time: '10:00', name: 'Pilates', trainer: 'Lise Dahl', duration: '50 min', spots: 4, icon: Heart },
       { time: '12:30', name: 'CrossFit', trainer: 'Erik Hansen', duration: '60 min', spots: 0, icon: Dumbbell },
       { time: '17:30', name: 'HIIT-Okt', trainer: 'Sara Moe', duration: '45 min', spots: 7, icon: Zap },
@@ -48,44 +48,125 @@ const KLASSER = [
 
 const PLANER = [
   {
-    name: 'Starter', price: 299, desc: 'Perfekt for a komme i gang',
-    features: ['Tilgang til treningsgulv', '2 gruppetimer/uke', 'Garderobetilgang', 'App-sporing'],
-    cta: 'Kom i gang', highlight: false,
+    name: 'Aktiv',
+    subtitle: 'For deg som trener 1-2 ganger i uka',
+    price: 249,
+    period: '/mnd',
+    desc: 'Kom deg i gang og hold deg aktiv',
+    highlight: false,
+    badge: null as string | null,
+    features: [
+      'Tilgang til treningsgulv',
+      'Garderobe og dusj',
+      'Fitness-app med treningslogg',
+      'Tilgang 06:00-22:00',
+    ],
+    cta: 'Kom i gang',
   },
   {
-    name: 'Elite', price: 549, desc: 'Vart mest populaere alternativ',
-    features: ['Ubegrenset treningsgolvtilgang', 'Ubegrenset gruppetimer', '1 PT-okt/mnd', 'Kostholdsguide', 'Prioritert booking', 'Gjestekort x2'],
-    cta: 'Bli Elite', highlight: true,
+    name: 'Trening',
+    subtitle: 'For faste mosjonister 3-4 ganger i uka',
+    price: 449,
+    period: '/mnd',
+    desc: 'Det komplette treningsopplegget',
+    highlight: false,
+    badge: null as string | null,
+    features: [
+      'Alt i Aktiv',
+      'Ubegrenset gruppetimer',
+      'Tilgang 24/7',
+      '1 PT-introduksjonsokt',
+      'Kostholdsguide (digital)',
+      'Gjestekort x1/mnd',
+    ],
+    cta: 'Start treningen',
   },
   {
-    name: 'Pro', price: 899, desc: 'For seriose utovere',
-    features: ['Alt i Elite', '4 PT-okter/mnd', 'Kroppsanalyse', 'Skreddersydd treningsplan', 'Restitusjonssuite', 'Ubegrenset gjestekort'],
-    cta: 'Ga Pro', highlight: false,
+    name: 'Performance',
+    subtitle: 'For seriose utovere med mal',
+    price: 699,
+    period: '/mnd',
+    desc: 'Vart mest populaere alternativ',
+    highlight: true,
+    badge: 'Mest Populaer',
+    features: [
+      'Alt i Trening',
+      '4 PT-okter/mnd',
+      'Naerings- og kostholdscoaching',
+      'Prioritert timebooking',
+      'Restitusjonssuite (badstue + isokar)',
+      'Gjestekort x3/mnd',
+      'Manedsvis kroppsanalyse',
+    ],
+    cta: 'Bli Performance',
+  },
+  {
+    name: 'Elite',
+    subtitle: 'For konkurranseutovere og profesjonelle',
+    price: 999,
+    period: '/mnd',
+    desc: 'Alt du trenger for toppprestasjon',
+    highlight: false,
+    badge: null as string | null,
+    features: [
+      'Alt i Performance',
+      'Ubegrenset PT-okter',
+      'Personlig treningsprogram',
+      'Konkurranse- og sesongplanlegging',
+      'Ubegrenset gjestekort',
+      'Prioritert locker i garderobe',
+      'Direkte tilgang til sjefstrener',
+    ],
+    cta: 'Ga Elite',
   },
 ];
 
 const TRENERE = [
   {
-    name: 'Erik Hansen', role: 'Sjefstrener · HIIT og Boksing',
-    bio: '10 ars erfaring. Tidligere norsk boksemester. Spesialiserer seg pa intensiv funksjonell trening og prestasjonsutvikling.',
+    name: 'Erik Hansen',
+    role: 'Sjefstrener',
+    specialty: 'HIIT & Boksing',
+    experience: '10 ars erfaring',
+    bio: 'Tidligere norsk boksemester og NFIF-sertifisert funksjonell trener. Eriks okter er designet for deg som vil ha resultater — fort. Han kombinerer kampsport-presisjon med moderne HIIT-metoder for a maksimere fettforbrenning og atletisk kapasitet.',
+    quote: '"Du trenger ikke vaere i form for a begynne. Du begynner for a komme i form."',
+    certifications: ['NFIF Pt. 3', 'Boksing Niva 2', 'Funksjonell Trening'],
+    bestFor: 'Intensiv trening, vekttap, atletisk utvikling',
     img: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=500&fit=crop&crop=face',
     tags: ['HIIT', 'Boksing', 'Funksjonell trening'],
   },
   {
-    name: 'Lise Dahl', role: 'Yoga og Pilates-instruktor',
-    bio: 'Sertifisert i Hatha og Vinyasa yoga. Ekspert pa bevisst bevegelse, pustekontroll og kjernerehabiltering.',
+    name: 'Lise Dahl',
+    role: 'Yoga & Pilates-instruktor',
+    specialty: 'Bevisst bevegelse',
+    experience: '8 ars erfaring',
+    bio: 'Sertifisert i Hatha, Vinyasa og restorativ yoga. Lise hjelper deg a finne balansen mellom styrke og mykhet — ideell for dem som sliter med stress, ryggproblemer eller onsker a forbedre fleksibilitet og kroppsholdning gjennom bevisst bevegelse.',
+    quote: '"Yoga er ikke en prestasjon. Det er en praksis."',
+    certifications: ['Yoga Alliance RYT 500', 'Pilates Foundation', 'Prenatal Yoga'],
+    bestFor: 'Stressmestring, fleksibilitet, kjernerehabiltering',
     img: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=500&fit=crop&crop=face',
     tags: ['Yoga', 'Pilates', 'Rehabilitering'],
   },
   {
-    name: 'Mads Berg', role: 'Styrke og CrossFit-trener',
-    bio: 'CrossFit Level 3-trener med styrkeltingbakgrunn. Hjelper utovere med a bygge raskyrke og langtidsutholdeghet.',
+    name: 'Mads Berg',
+    role: 'Styrke & CrossFit-trener',
+    specialty: 'Olympisk lofting',
+    experience: '7 ars erfaring',
+    bio: 'CrossFit Level 3-sertifisert med bakgrunn fra olympisk vektlofting pa nasjonalt niva. Mads laerer deg a lofte riktig, bygge eksplosiv styrke og unnga skader. Hans trening kombinerer teknikkdrill med progressiv overbelastning for langsiktig utvikling.',
+    quote: '"Teknikk forst, tyngde etterpa."',
+    certifications: ['CrossFit L3', 'NSCA-CSCS', 'Olympisk Vektlofting Trener'],
+    bestFor: 'Styrkebygging, CrossFit, eksplosiv atletisme',
     img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=500&fit=crop',
     tags: ['CrossFit', 'Styrketrening', 'Olympisk lofting'],
   },
   {
-    name: 'Sara Moe', role: 'Spinning og Kondisjonsspesialist',
-    bio: 'Sertifisert for innendors sykling, 7 ars erfaring med bade konkurransesyklister og mosjonister.',
+    name: 'Sara Moe',
+    role: 'Kondisjon & Spinning-spesialist',
+    specialty: 'Intervallsykling',
+    experience: '7 ars erfaring',
+    bio: 'Indoor cycling-instruktor med bakgrunn som konkurransesyklist. Sara designer okter som passer alle — fra mosjonister som vil forbedre kondisen til syklister som vil ta prestasjonen til neste niva. Hennes musikk-drevne klasser er kjent for a vaere bade krevende og morsomt.',
+    quote: '"Hvert pedaltrak er et skritt naermere malet ditt."',
+    certifications: ['Spinning Master Instructor', 'NFIF Kondisjon', 'WATTBIKE Coach'],
+    bestFor: 'Kondisjonstrening, kalorieforbruk, sykkelprestasjon',
     img: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=500&fit=crop&crop=face',
     tags: ['Spinning', 'Kondisjon', 'Intervalltrening'],
   },
@@ -149,7 +230,7 @@ export default function BergenFitness() {
                 </div>
                 <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '14px', lineHeight: 1.65 }}>
                   {authMode === 'join'
-                    ? 'Demo: I produksjon opprettes kontoen din, 7-dagers gratisprøven starter og du logges inn.'
+                    ? 'Demo: I produksjon opprettes kontoen din, 7-dagers gratisproven starter og du logges inn.'
                     : 'Demo: I produksjon godkjennes kontoen din og du logges inn.'}
                 </p>
                 <button onClick={() => setAuthModal(false)} style={{ marginTop: '24px', background: 'var(--orange)', color: '#fff', borderRadius: '8px', padding: '12px 32px', fontWeight: 700, fontSize: '15px', border: 'none', cursor: 'pointer' }}>
@@ -176,10 +257,10 @@ export default function BergenFitness() {
                   <input type="password" placeholder="Passord" value={authPassword} onChange={e => setAuthPassword(e.target.value)} required
                     style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '12px 14px', color: '#fff', fontSize: '14px', outline: 'none' }} />
                   <button type="submit" style={{ background: 'var(--orange)', color: '#fff', borderRadius: '8px', padding: '13px', fontWeight: 700, fontSize: '15px', marginTop: '6px', border: 'none', cursor: 'pointer' }}>
-                    {authMode === 'join' ? 'Start gratis prøveperiode' : 'Logg inn'}
+                    {authMode === 'join' ? 'Start gratis proveperiode' : 'Logg inn'}
                   </button>
                 </form>
-                {authMode === 'join' && <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '12px', textAlign: 'center', marginTop: '10px' }}>7 dager gratis · Ingen bindingstid</p>}
+                {authMode === 'join' && <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '12px', textAlign: 'center', marginTop: '10px' }}>7 dager gratis - Ingen bindingstid</p>}
               </>
             )}
           </div>
@@ -212,18 +293,18 @@ export default function BergenFitness() {
                   <input type="text" placeholder="Ditt navn" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none' }} />
                   <input type="email" placeholder="Din e-post" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none' }} />
                   <select style={{ background: 'var(--navy-mid)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none' }}>
-                    <option>Fortrukkеt tid: Morgen (6-12)</option>
-                    <option>Fortrukkеt tid: Ettermiddag (12-17)</option>
-                    <option>Fortrukkеt tid: Kveld (17-22)</option>
+                    <option>Foretrukket tid: Morgen (6-12)</option>
+                    <option>Foretrukket tid: Ettermiddag (12-17)</option>
+                    <option>Foretrukket tid: Kveld (17-22)</option>
                   </select>
                   <select style={{ background: 'var(--navy-mid)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none' }}>
                     <option>Timetype: Personlig trening (60 min)</option>
                     <option>Timetype: Kartlegging + Program (90 min)</option>
-                    <option>Timetype: Kostholdsrdgivning (45 min)</option>
+                    <option>Timetype: Kostholdsradgivning (45 min)</option>
                   </select>
                   <button onClick={() => setTrainerBooked(true)}
                     style={{ background: 'var(--orange)', color: '#fff', borderRadius: '8px', padding: '13px', fontWeight: 700, fontSize: '15px', marginTop: '4px', cursor: 'pointer', border: 'none' }}>
-                    Send forespørsel
+                    Send forespursel
                   </button>
                 </div>
               </>
@@ -324,7 +405,7 @@ export default function BergenFitness() {
               <span style={{ display: 'inline-block', width: '28px', height: '2px', background: 'var(--orange)' }} />
               Bergens fremste treningssenter
             </p>
-            <h1 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(52px, 8vw, 96px)', fontWeight: 800, lineHeight: 0.95, letterSpacing: '-0.035em', marginBottom: '28px' }}>
+            <h1 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(40px, 6vw, 72px)', fontWeight: 800, lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '28px' }}>
               Trening<br />uten<br /><span style={{ color: 'var(--orange)' }}>kompromiss.</span>
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '17px', lineHeight: 1.7, maxWidth: '480px', fontWeight: 300, marginBottom: '36px' }}>
@@ -347,12 +428,12 @@ export default function BergenFitness() {
         </div>
       </section>
 
-      {/* STATS — dark cards, not orange bar */}
+      {/* STATS */}
       <section style={{ background: '#111318', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0' }}>
         <div className="stats-grid max-w-7xl mx-auto" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
           {STATS.map((stat, i) => (
             <div key={stat.label} style={{ padding: '32px 28px', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
-              <div style={{ fontFamily: 'var(--font-syne)', fontSize: '42px', fontWeight: 800, color: 'var(--orange)', lineHeight: 1, letterSpacing: '-0.03em' }}>{stat.value}</div>
+              <div style={{ fontFamily: 'var(--font-syne)', fontSize: '36px', fontWeight: 800, color: 'var(--orange)', lineHeight: 1, letterSpacing: '-0.02em' }}>{stat.value}</div>
               <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)', marginTop: '8px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{stat.label}</div>
             </div>
           ))}
@@ -365,14 +446,14 @@ export default function BergenFitness() {
           <div className="flex items-start justify-between flex-wrap gap-4 mb-12">
             <div>
               <div style={{ color: 'var(--orange)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '10px' }}>Timeplan</div>
-              <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(30px, 4vw, 44px)', fontWeight: 800, letterSpacing: '-0.02em' }}>Finn din time</h2>
+              <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 800, letterSpacing: '-0.02em' }}>Finn din time</h2>
             </div>
             <span className="demo-badge">Interaktiv demo</span>
           </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '10px' }}>
+          <div className="day-tabs" style={{ marginBottom: '10px' }}>
             {KLASSER.map((day, i) => (
               <button key={day.day} onClick={() => setActiveDay(i)}
-                style={{ background: activeDay === i ? 'var(--orange)' : 'var(--navy-mid)', border: activeDay === i ? 'none' : '1px solid rgba(255,255,255,0.08)', color: '#fff', borderRadius: '8px', padding: '9px 20px', fontSize: '13.5px', fontWeight: activeDay === i ? 700 : 400, cursor: 'pointer' }}
+                style={{ background: activeDay === i ? 'var(--orange)' : 'var(--navy-mid)', border: activeDay === i ? 'none' : '1px solid rgba(255,255,255,0.08)', color: '#fff', borderRadius: '8px', padding: '9px 20px', fontSize: '13.5px', fontWeight: activeDay === i ? 700 : 400, cursor: 'pointer', flexShrink: 0 }}
                 className="transition-all">{day.day}</button>
             ))}
           </div>
@@ -382,7 +463,7 @@ export default function BergenFitness() {
               const isFull = cls.spots === 0;
               const isBooked = bookedClasses.some(b => b.includes(cls.name));
               return (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 24px', flexWrap: 'wrap', gap: '12px', borderBottom: i < KLASSER[activeDay].schedule.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                <div key={i} className="schedule-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 24px', flexWrap: 'wrap', gap: '12px', borderBottom: i < KLASSER[activeDay].schedule.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
                     <div style={{ color: 'rgba(255,255,255,0.35)', fontWeight: 600, fontSize: '14px', minWidth: '52px', fontFamily: 'var(--font-syne)' }}>{cls.time}</div>
                     <div style={{ width: '36px', height: '36px', background: isFull ? 'rgba(255,255,255,0.04)' : 'rgba(232,93,4,0.12)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -393,7 +474,7 @@ export default function BergenFitness() {
                       <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px' }}>{cls.trainer} &middot; {cls.duration}</div>
                     </div>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div className="schedule-row-right" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <span style={{ fontSize: '13px', color: isFull ? '#f87171' : cls.spots <= 3 ? '#fb923c' : 'rgba(255,255,255,0.4)' }}>
                       {isFull ? 'Fullt' : `${cls.spots} plasser igjen`}
                     </span>
@@ -415,31 +496,31 @@ export default function BergenFitness() {
         <div className="max-w-7xl mx-auto px-6">
           <div style={{ textAlign: 'center', marginBottom: '64px' }}>
             <div style={{ color: 'var(--orange)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '10px' }}>Priser</div>
-            <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(30px, 4vw, 44px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '12px' }}>Treningsabonnement</h2>
+            <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '12px' }}>Treningsabonnement</h2>
             <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '15px' }}>Ingen bindingstid. Avbestill nar som helst. De forste 7 dagene er alltid gratis.</p>
           </div>
-          <div className="plan-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', maxWidth: '900px', margin: '0 auto' }}>
+          <div className="plan-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', maxWidth: '1100px', margin: '0 auto' }}>
             {PLANER.map(plan => (
               <div key={plan.name}
-                style={{ background: plan.highlight ? 'var(--orange)' : 'var(--navy-mid)', border: plan.highlight ? 'none' : '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: '32px', position: 'relative', boxShadow: plan.highlight ? '0 24px 60px rgba(232,93,4,0.3)' : 'none', transform: plan.highlight ? 'scale(1.04)' : 'scale(1)' }}>
-                {plan.highlight && (
-                  <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: '#fff', color: 'var(--orange)', fontSize: '11px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', padding: '4px 14px', borderRadius: '20px' }}>Mest Populaer</div>
+                style={{ background: plan.highlight ? 'var(--navy-mid)' : 'var(--navy-mid)', border: plan.highlight ? '2px solid var(--orange)' : '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: '32px', position: 'relative', boxShadow: plan.highlight ? '0 24px 60px rgba(232,93,4,0.15)' : 'none' }}>
+                {plan.badge && (
+                  <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: 'var(--orange)', color: '#fff', fontSize: '11px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', padding: '4px 14px', borderRadius: '20px', whiteSpace: 'nowrap' }}>{plan.badge}</div>
                 )}
                 <div style={{ fontFamily: 'var(--font-syne)', fontSize: '20px', fontWeight: 800, letterSpacing: '-0.01em', marginBottom: '4px' }}>{plan.name}</div>
-                <div style={{ color: plan.highlight ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.45)', fontSize: '13px', marginBottom: '20px' }}>{plan.desc}</div>
+                <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: '13px', marginBottom: '20px' }}>{plan.subtitle}</div>
                 <div style={{ marginBottom: '24px' }}>
-                  <span style={{ fontFamily: 'var(--font-syne)', fontSize: '46px', fontWeight: 800, letterSpacing: '-0.03em' }}>kr {plan.price}</span>
-                  <span style={{ color: plan.highlight ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.4)', fontSize: '14px' }}>/mnd</span>
+                  <span style={{ fontFamily: 'var(--font-syne)', fontSize: '42px', fontWeight: 800, letterSpacing: '-0.03em' }}>kr {plan.price}</span>
+                  <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '14px' }}>{plan.period}</span>
                 </div>
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
                   {plan.features.map(f => (
-                    <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13.5px', color: plan.highlight ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.65)' }}>
-                      <Check size={14} color={plan.highlight ? '#fff' : 'var(--orange)'} strokeWidth={3} style={{ flexShrink: 0 }} />{f}
+                    <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13.5px', color: 'rgba(255,255,255,0.65)' }}>
+                      <Check size={14} color="var(--orange)" strokeWidth={3} style={{ flexShrink: 0 }} />{f}
                     </li>
                   ))}
                 </ul>
                 <button onClick={() => openAuth('join')}
-                  style={{ width: '100%', padding: '13px', background: plan.highlight ? '#fff' : 'rgba(232,93,4,0.9)', color: plan.highlight ? 'var(--orange)' : '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 700, border: 'none', cursor: 'pointer' }}
+                  style={{ width: '100%', padding: '13px', background: plan.highlight ? 'var(--orange)' : 'rgba(232,93,4,0.9)', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 700, border: 'none', cursor: 'pointer' }}
                   className="hover:opacity-90 transition-opacity">
                   {plan.cta}
                 </button>
@@ -455,9 +536,9 @@ export default function BergenFitness() {
           <div style={{ marginBottom: '56px' }}>
             <div style={{ color: 'var(--orange)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '10px' }}>Vart team</div>
             <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
-              <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(30px, 4vw, 44px)', fontWeight: 800, letterSpacing: '-0.02em' }}>Eksperttrenere</h2>
+              <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 800, letterSpacing: '-0.02em' }}>Eksperttrenere</h2>
               <button onClick={() => showToast('Alle 12 trenere pa det fullstendige nettstedet!')} style={{ color: 'var(--orange)', fontSize: '14px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px', background: 'none', border: 'none', cursor: 'pointer' }}>
-                Mott alle trenere <ChevronRight size={16} />
+                Mot alle trenere <ChevronRight size={16} />
               </button>
             </div>
           </div>
@@ -471,11 +552,16 @@ export default function BergenFitness() {
                 </div>
                 <div style={{ padding: '18px' }}>
                   <div style={{ fontFamily: 'var(--font-syne)', fontSize: '16px', fontWeight: 700, marginBottom: '3px' }}>{trainer.name}</div>
-                  <div style={{ color: 'var(--orange-light)', fontSize: '12px', fontWeight: 500, marginBottom: '10px' }}>{trainer.role}</div>
-                  <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '12.5px', lineHeight: 1.65, marginBottom: '14px' }}>{trainer.bio}</p>
+                  <div style={{ color: 'var(--orange-light)', fontSize: '12px', fontWeight: 500, marginBottom: '8px' }}>{trainer.role}</div>
+                  <div style={{ marginBottom: '10px' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 600, color: '#fff', background: 'rgba(232,93,4,0.2)', border: '1px solid rgba(232,93,4,0.3)', borderRadius: '4px', padding: '3px 8px', letterSpacing: '0.04em' }}>{trainer.specialty}</span>
+                  </div>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px', fontStyle: 'italic', lineHeight: 1.5, marginBottom: '10px' }}>{trainer.quote}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '12.5px', lineHeight: 1.65, marginBottom: '10px' }}>{trainer.bio}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginBottom: '12px' }}><span style={{ fontWeight: 600 }}>Best for:</span> {trainer.bestFor}</p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '14px' }}>
-                    {trainer.tags.map(tag => (
-                      <span key={tag} style={{ fontSize: '10px', fontWeight: 600, color: 'var(--orange)', background: 'rgba(232,93,4,0.1)', border: '1px solid rgba(232,93,4,0.2)', borderRadius: '4px', padding: '3px 7px', letterSpacing: '0.04em' }}>{tag}</span>
+                    {trainer.certifications.map(cert => (
+                      <span key={cert} style={{ fontSize: '10px', fontWeight: 600, color: 'var(--orange)', background: 'rgba(232,93,4,0.1)', border: '1px solid rgba(232,93,4,0.2)', borderRadius: '4px', padding: '3px 7px', letterSpacing: '0.04em' }}>{cert}</span>
                     ))}
                   </div>
                   <button onClick={() => { setTrainerModal(trainer); setTrainerBooked(false); }}
@@ -491,9 +577,9 @@ export default function BergenFitness() {
       </section>
 
       {/* CTA */}
-      <section id="kontakt" style={{ background: 'var(--orange)', padding: '80px 0' }}>
+      <section id="kontakt" style={{ background: 'linear-gradient(135deg, #C44B00 0%, #E85D04 60%, #F08030 100%)', padding: '80px 0' }}>
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(32px, 5vw, 54px)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '16px' }}>
+          <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(26px, 5vw, 48px)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '16px' }}>
             Klar til a na dine mal?
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '17px', maxWidth: '460px', margin: '0 auto 36px', lineHeight: 1.65 }}>
@@ -540,7 +626,7 @@ export default function BergenFitness() {
             </div>
             <div>
               <div style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, marginBottom: '14px', fontSize: '13px', letterSpacing: '0.02em' }}>Apningstider</div>
-              {[['Man–Fre', '05:30–23:00'], ['Lor–Son', '07:00–21:00'], ['Helligdager', '08:00–20:00']].map(([day, hours]) => (
+              {[['Man-Fre', '05:30-23:00'], ['Lor-Son', '07:00-21:00'], ['Helligdager', '08:00-20:00']].map(([day, hours]) => (
                 <div key={day} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                   <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px' }}>{day}</span>
                   <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: '13px', fontWeight: 500 }}>{hours}</span>
@@ -549,7 +635,7 @@ export default function BergenFitness() {
             </div>
           </div>
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '24px', color: 'rgba(255,255,255,0.2)', fontSize: '12px', textAlign: 'center' }}>
-            © 2025 BergenFitness &middot; Demo-side av Sloth Studio &middot;{' '}
+            2025 BergenFitness &middot; Demo-side av Sloth Studio &middot;{' '}
             <a href="https://sloth-studio.pages.dev" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--orange-light)', textDecoration: 'none', fontWeight: 600 }}>Vil du ha dette for din bedrift? Fa tilbud</a>
           </div>
         </div>
