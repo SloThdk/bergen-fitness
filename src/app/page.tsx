@@ -349,7 +349,7 @@ export default function BergenFitness() {
 
       {/* STATS — dark cards, not orange bar */}
       <section style={{ background: '#111318', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0' }}>
-        <div className="max-w-7xl mx-auto" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+        <div className="stats-grid max-w-7xl mx-auto" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
           {STATS.map((stat, i) => (
             <div key={stat.label} style={{ padding: '32px 28px', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
               <div style={{ fontFamily: 'var(--font-syne)', fontSize: '42px', fontWeight: 800, color: 'var(--orange)', lineHeight: 1, letterSpacing: '-0.03em' }}>{stat.value}</div>
@@ -418,7 +418,7 @@ export default function BergenFitness() {
             <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(30px, 4vw, 44px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '12px' }}>Treningsabonnement</h2>
             <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '15px' }}>Ingen bindingstid. Avbestill nar som helst. De forste 7 dagene er alltid gratis.</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', maxWidth: '900px', margin: '0 auto' }}>
+          <div className="plan-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', maxWidth: '900px', margin: '0 auto' }}>
             {PLANER.map(plan => (
               <div key={plan.name}
                 style={{ background: plan.highlight ? 'var(--orange)' : 'var(--navy-mid)', border: plan.highlight ? 'none' : '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: '32px', position: 'relative', boxShadow: plan.highlight ? '0 24px 60px rgba(232,93,4,0.3)' : 'none', transform: plan.highlight ? 'scale(1.04)' : 'scale(1)' }}>
@@ -461,7 +461,7 @@ export default function BergenFitness() {
               </button>
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+          <div className="trainer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
             {TRENERE.map(trainer => (
               <div key={trainer.name} style={{ background: 'var(--navy-mid)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '12px', overflow: 'hidden' }}
                 className="hover:scale-[1.02] hover:shadow-xl transition-all">
@@ -517,7 +517,7 @@ export default function BergenFitness() {
       {/* FOOTER */}
       <footer style={{ background: 'var(--navy-mid)', borderTop: '1px solid rgba(255,255,255,0.05)', padding: '48px 0 32px' }}>
         <div className="max-w-7xl mx-auto px-6">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', marginBottom: '48px' }}>
+          <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', marginBottom: '48px' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
                 <div style={{ background: 'var(--orange)', borderRadius: '6px', width: '26px', height: '26px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Dumbbell size={13} color="#fff" /></div>
