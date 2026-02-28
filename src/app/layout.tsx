@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Syne, DM_Sans } from "next/font/google";
+import { Space_Grotesk, DM_Sans } from "next/font/google";
 import "./globals.css";
 
-const syne = Syne({
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-syne",
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
+  weight: ["400", "600", "700"],
 });
 
 const dmSans = DM_Sans({
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="no">
-      <body className={`${syne.variable} ${dmSans.variable} antialiased`}>
+      <body className={`${spaceGrotesk.variable} ${dmSans.variable} antialiased`}>
         {children}
       </body>
     </html>
