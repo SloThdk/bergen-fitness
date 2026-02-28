@@ -411,14 +411,14 @@ export default function BergenFitness() {
       <nav style={{ background: 'rgba(13,27,42,0.97)', borderBottom: '1px solid rgba(255,255,255,0.05)', top: bannerOpen ? '44px' : '0', transition: 'top 0.2s', backdropFilter: 'blur(16px)' }}
         className="fixed left-0 right-0 z-50">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
-          <div className="flex items-center gap-2.5">
+          <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2.5" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
             <div style={{ background: 'var(--orange)', borderRadius: '6px', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Dumbbell size={15} color="#fff" />
             </div>
-            <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: '18px', letterSpacing: '-0.02em' }}>
+            <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: '18px', letterSpacing: '-0.02em', color: '#fff' }}>
               Bergen<span style={{ color: 'var(--orange)' }}>Fitness</span>
             </span>
-          </div>
+          </button>
           <div className="hidden md:flex items-center gap-7">
             {NAV_LINKS.map(([id, label]) => (
               <button key={id} onClick={() => scrollTo(id)}
@@ -654,23 +654,25 @@ export default function BergenFitness() {
         </div>
       </section>
 
-      {/* ACCESS LEVELS */}
-      <section style={{ padding: '80px 0', background: 'var(--navy)' }}>
-        <div className="max-w-7xl mx-auto px-6" style={{ textAlign: 'center' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', marginBottom: '16px', background: 'rgba(232,93,4,0.08)', border: '1px solid rgba(232,93,4,0.2)', borderRadius: '4px', padding: '3px 10px' }}>
-            <span style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'var(--orange)' }}>DEMO</span>
-          </div>
-          <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 800, color: '#fff', marginBottom: '8px' }}>Utforsk hvert tilgangsniva</h2>
-          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '40px', maxWidth: '500px', marginLeft: 'auto', marginRight: 'auto' }}>Se hvordan systemet fungerer for trenere. Velg en rolle og oppdag portalen.</p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
-            <a href="/trener" style={{ display: 'block', background: 'var(--navy-mid)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px', padding: '28px 32px', textDecoration: 'none', textAlign: 'center', width: '260px', transition: 'all 0.15s' }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'rgba(232,93,4,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      {/* PAYMENT METHODS */}
+      <section style={{ padding: '64px 0', background: 'var(--navy)' }}>
+        <div className="max-w-5xl mx-auto px-6" style={{ textAlign: 'center' }}>
+          <div style={{ color: 'var(--orange)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '10px' }}>Betaling</div>
+          <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 800, color: '#fff', marginBottom: '8px' }}>Fleksible betalingsalternativer</h2>
+          <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '14px', marginBottom: '40px', maxWidth: '460px', marginLeft: 'auto', marginRight: 'auto' }}>Vi aksepterer alle de mest populaere betalingsmetodene slik at du kan betale slik det passer deg.</p>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px', flexWrap: 'wrap' }}>
+            {[
+              { src: '/icons/Visa.png', alt: 'Visa', w: 72 },
+              { src: '/icons/MasterCard.png', alt: 'Mastercard', w: 64 },
+              { src: '/icons/KlarnaLogo.png', alt: 'Klarna', w: 80 },
+              { src: '/icons/ApplePay.png', alt: 'Apple Pay', w: 72 },
+              { src: '/icons/GooglePay.png', alt: 'Google Pay', w: 72 },
+              { src: '/icons/PayPal.png', alt: 'PayPal', w: 72 },
+            ].map(pm => (
+              <div key={pm.alt} style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '20px 28px', display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '120px', minHeight: '72px' }}>
+                <Image src={pm.src} alt={pm.alt} width={pm.w} height={48} style={{ objectFit: 'contain', filter: 'brightness(1.1)' }} />
               </div>
-              <div style={{ fontFamily: 'var(--font-syne)', fontSize: '16px', fontWeight: 700, color: '#fff', marginBottom: '6px' }}>Trenerportal</div>
-              <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '12px', lineHeight: 1.5, margin: 0 }}>Se ukeoversikt, dine klienter, statistikk og belegg for alle timer.</p>
-              <div style={{ marginTop: '14px', color: 'var(--orange)', fontSize: '12px', fontWeight: 600 }}>Apne portal &rarr;</div>
-            </a>
+            ))}
           </div>
         </div>
       </section>
