@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Menu, X, Zap, Clock, Users, ChevronRight, Check, Dumbbell, Heart, Flame, Trophy, ArrowRight, Phone, Mail, MapPin, User } from 'lucide-react';
-import UserDashboard from './components/UserDashboard';
+import { useRouter } from 'next/navigation';
 
 const NAV_LINKS = [['timer', 'Timer'], ['treningsabonnement', 'Abonnement'], ['trenere', 'Trenere'], ['timeplan', 'Timeplan'], ['kontakt', 'Kontakt']];
 
@@ -201,7 +201,7 @@ export default function BergenFitness() {
   const [trainerModal, setTrainerModal] = useState<typeof TRENERE[0] | null>(null);
   const [trainerBooked, setTrainerBooked] = useState(false);
   const [toast, setToast] = useState('');
-  const [dashboardOpen, setDashboardOpen] = useState(false);
+  const kontoRouter = useRouter();
 
   const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(''), 3500); };
 
@@ -458,7 +458,7 @@ export default function BergenFitness() {
           </div>
           <div className="hidden md:flex items-center gap-4">
             {hydrated && loggedInUser ? (
-              <button onClick={() => setDashboardOpen(true)} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(232,93,4,0.1)', border: '1px solid rgba(232,93,4,0.3)', borderRadius: '100px', padding: '6px 14px 6px 6px', cursor: 'pointer' }}>
+              <button onClick={() => kontoRouter.push('/konto')} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(232,93,4,0.1)', border: '1px solid rgba(232,93,4,0.3)', borderRadius: '100px', padding: '6px 14px 6px 6px', cursor: 'pointer' }}>
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--orange), var(--orange-dark))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <span style={{ color: '#fff', fontWeight: 700, fontSize: '13px' }}>{loggedInUser.name.charAt(0).toUpperCase()}</span>
                 </div>
@@ -482,7 +482,7 @@ export default function BergenFitness() {
               <button key={id} onClick={() => scrollTo(id)} style={{ color: 'rgba(255,255,255,0.75)', fontSize: '15px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>{label}</button>
             ))}
             {hydrated && loggedInUser ? (
-              <button onClick={() => { setDashboardOpen(true); setMenuOpen(false); }} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(232,93,4,0.1)', border: '1px solid rgba(232,93,4,0.3)', borderRadius: '8px', padding: '10px 14px' }}>
+              <button onClick={() => { kontoRouter.push('/konto'); setMenuOpen(false); }} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(232,93,4,0.1)', border: '1px solid rgba(232,93,4,0.3)', borderRadius: '8px', padding: '10px 14px' }}>
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--orange), var(--orange-dark))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <span style={{ color: '#fff', fontWeight: 700, fontSize: '13px' }}>{loggedInUser.name.charAt(0).toUpperCase()}</span>
                 </div>
@@ -622,7 +622,7 @@ export default function BergenFitness() {
                     </li>
                   ))}
                 </ul>
-                <button onClick={() => { if (loggedInUser) { setDashboardOpen(true); } else { openAuth('join'); } }}
+                <button onClick={() => { if (loggedInUser) { kontoRouter.push('/konto'); } else { openAuth('join'); } }}
                   style={{ width: '100%', padding: '13px', background: plan.highlight ? 'var(--orange)' : 'rgba(232,93,4,0.9)', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 700, border: 'none', cursor: 'pointer' }}
                   className="hover:opacity-90 transition-opacity">
                   {plan.cta}
@@ -766,20 +766,6 @@ export default function BergenFitness() {
           </div>
         </div>
       </footer>
-
-      {/* USER DASHBOARD */}
-      {dashboardOpen && loggedInUser && (
-        <UserDashboard
-          user={loggedInUser}
-          onClose={() => setDashboardOpen(false)}
-          onLogout={() => {
-            setLoggedInUser(null);
-            setDashboardOpen(false);
-            try { sessionStorage.removeItem('bf_user'); } catch {}
-            showToast('Logget ut!');
-          }}
-        />
-      )}
 
       {/* FLOATING BUILT BY */}
       <a href="https://sloth-studio.pages.dev" target="_blank" rel="noopener noreferrer"
