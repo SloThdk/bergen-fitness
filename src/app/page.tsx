@@ -188,6 +188,9 @@ export default function BergenFitness() {
   const [authDone, setAuthDone] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<{ name: string; email: string } | null>(null);
   const [authErrors, setAuthErrors] = useState<{ name?: string; email?: string; password?: string }>({});
+  const [forgotMode, setForgotMode] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotSent, setForgotSent] = useState(false);
   const [trainerName, setTrainerName] = useState('');
   const [trainerEmail, setTrainerEmail] = useState('');
   const [trainerErrors, setTrainerErrors] = useState<{ name?: string; email?: string }>({});
@@ -203,6 +206,7 @@ export default function BergenFitness() {
 
   const openAuth = (mode: 'join' | 'signin' = 'join') => {
     setAuthMode(mode); setAuthDone(false); setAuthName(''); setAuthEmail(''); setAuthPassword(''); setAuthErrors({});
+    setForgotMode(false); setForgotSent(false); setForgotEmail('');
     setAuthModal(true);
   };
 
@@ -293,7 +297,29 @@ export default function BergenFitness() {
                     {authMode === 'join' ? 'Start gratis proveperiode' : 'Logg inn'}
                   </button>
                 </form>
+                {authMode === 'signin' && !forgotMode && (
+                  <button type="button" onClick={() => setForgotMode(true)} style={{ color: 'var(--orange-light)', fontSize: '12px', fontWeight: 500, textAlign: 'center', marginTop: '6px', display: 'block', width: '100%' }}>Glemt passord?</button>
+                )}
                 {authMode === 'join' && <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '12px', textAlign: 'center', marginTop: '10px' }}>7 dager gratis - Ingen bindingstid</p>}
+                {forgotMode && (
+                  <div style={{ marginTop: '16px', padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px' }}>
+                    {forgotSent ? (
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{ color: '#86efac', fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>E-post sendt!</div>
+                        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>Demo: Sjekk innboksen din for tilbakestillingslenke.</p>
+                        <button type="button" onClick={() => { setForgotMode(false); setForgotSent(false); }} style={{ color: 'var(--orange)', fontSize: '12px', fontWeight: 600, marginTop: '8px' }}>Tilbake til innlogging</button>
+                      </div>
+                    ) : (
+                      <>
+                        <div style={{ fontSize: '14px', fontWeight: 700, marginBottom: '8px' }}>Tilbakestill passord</div>
+                        <input type="email" placeholder="Din e-postadresse" value={forgotEmail} onChange={e => setForgotEmail(e.target.value)}
+                          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '11px 14px', color: '#fff', fontSize: '14px', outline: 'none', width: '100%', boxSizing: 'border-box' as const, marginBottom: '10px' }} />
+                        <button type="button" onClick={() => { if (forgotEmail.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotEmail.trim())) { setForgotSent(true); showToast('Tilbakestillingslenke sendt!'); } }}
+                          style={{ width: '100%', background: 'var(--orange)', color: '#fff', borderRadius: '8px', padding: '11px', fontWeight: 700, fontSize: '14px' }}>Send tilbakestillingslenke</button>
+                      </>
+                    )}
+                  </div>
+                )}
               </>
             )}
           </div>
