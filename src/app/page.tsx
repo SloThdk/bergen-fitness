@@ -180,13 +180,14 @@ export default function BergenFitness() {
   const [bookedClasses, setBookedClasses] = useState<string[]>([]);
   const [bannerOpen, setBannerOpen] = useState(true);
   const [authModal, setAuthModal] = useState(false);
-  useEffect(() => { try { const u = sessionStorage.getItem('bf_user'); if (u) setLoggedInUser(JSON.parse(u)); } catch {} }, []);
+  useEffect(() => { setHydrated(true); try { const u = sessionStorage.getItem('bf_user'); if (u) setLoggedInUser(JSON.parse(u)); } catch {} }, []);
   const [authMode, setAuthMode] = useState<'join' | 'signin'>('join');
   const [authName, setAuthName] = useState('');
   const [authEmail, setAuthEmail] = useState('');
   const [authPassword, setAuthPassword] = useState('');
   const [authDone, setAuthDone] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<{ name: string; email: string } | null>(null);
+  const [hydrated, setHydrated] = useState(false);
   const [authErrors, setAuthErrors] = useState<{ name?: string; email?: string; password?: string }>({});
   const [forgotMode, setForgotMode] = useState(false);
   const [forgotEmail, setForgotEmail] = useState('');
@@ -456,7 +457,7 @@ export default function BergenFitness() {
             ))}
           </div>
           <div className="hidden md:flex items-center gap-4">
-            {loggedInUser ? (
+            {hydrated && loggedInUser ? (
               <button onClick={() => setDashboardOpen(true)} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(232,93,4,0.1)', border: '1px solid rgba(232,93,4,0.3)', borderRadius: '100px', padding: '6px 14px 6px 6px', cursor: 'pointer' }}>
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--orange), var(--orange-dark))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <span style={{ color: '#fff', fontWeight: 700, fontSize: '13px' }}>{loggedInUser.name.charAt(0).toUpperCase()}</span>
@@ -480,7 +481,7 @@ export default function BergenFitness() {
             {NAV_LINKS.map(([id, label]) => (
               <button key={id} onClick={() => scrollTo(id)} style={{ color: 'rgba(255,255,255,0.75)', fontSize: '15px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>{label}</button>
             ))}
-            {loggedInUser ? (
+            {hydrated && loggedInUser ? (
               <button onClick={() => { setDashboardOpen(true); setMenuOpen(false); }} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(232,93,4,0.1)', border: '1px solid rgba(232,93,4,0.3)', borderRadius: '8px', padding: '10px 14px' }}>
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--orange), var(--orange-dark))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <span style={{ color: '#fff', fontWeight: 700, fontSize: '13px' }}>{loggedInUser.name.charAt(0).toUpperCase()}</span>
