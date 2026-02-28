@@ -217,6 +217,7 @@ export default function BergenFitness() {
     const user = { name: authMode === 'join' ? authName.trim() : authEmail.split('@')[0], email: authEmail.trim() };
     setLoggedInUser(user);
     try { sessionStorage.setItem('bf_user', JSON.stringify(user)); } catch {}
+    showToast(`Logget inn som ${user.name}`);
     setTimeout(() => setAuthModal(false), 1500);
   };
 
