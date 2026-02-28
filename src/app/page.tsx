@@ -131,7 +131,7 @@ const TRENERE = [
     quote: '"Du trenger ikke vaere i form for a begynne. Du begynner for a komme i form."',
     certifications: ['NFIF Pt. 3', 'Boksing Niva 2', 'Funksjonell Trening'],
     bestFor: 'Intensiv trening, vekttap, atletisk utvikling',
-    img: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=500&fit=crop&crop=face',
+    img: 'https://images.pexels.com/photos/5209197/pexels-photo-5209197.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop',
     tags: ['HIIT', 'Boksing', 'Funksjonell trening'],
   },
   {
@@ -143,7 +143,7 @@ const TRENERE = [
     quote: '"Yoga er ikke en prestasjon. Det er en praksis."',
     certifications: ['Yoga Alliance RYT 500', 'Pilates Foundation', 'Prenatal Yoga'],
     bestFor: 'Stressmestring, fleksibilitet, kjernerehabiltering',
-    img: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=500&fit=crop&crop=face',
+    img: 'https://images.pexels.com/photos/6916300/pexels-photo-6916300.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop',
     tags: ['Yoga', 'Pilates', 'Rehabilitering'],
   },
   {
@@ -155,7 +155,7 @@ const TRENERE = [
     quote: '"Teknikk forst, tyngde etterpa."',
     certifications: ['CrossFit L3', 'NSCA-CSCS', 'Olympisk Vektlofting Trener'],
     bestFor: 'Styrkebygging, CrossFit, eksplosiv atletisme',
-    img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=500&fit=crop',
+    img: 'https://images.pexels.com/photos/14762174/pexels-photo-14762174.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop',
     tags: ['CrossFit', 'Styrketrening', 'Olympisk lofting'],
   },
   {
@@ -167,7 +167,7 @@ const TRENERE = [
     quote: '"Hvert pedaltrak er et skritt naermere malet ditt."',
     certifications: ['Spinning Master Instructor', 'NFIF Kondisjon', 'WATTBIKE Coach'],
     bestFor: 'Kondisjonstrening, kalorieforbruk, sykkelprestasjon',
-    img: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=500&fit=crop&crop=face',
+    img: 'https://images.pexels.com/photos/5669172/pexels-photo-5669172.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop',
     tags: ['Spinning', 'Kondisjon', 'Intervalltrening'],
   },
 ];
