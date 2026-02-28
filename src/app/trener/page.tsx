@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 /* ─── Data ─── */
 const TRAINERS: Record<string, { name: string; role: string; spec: string; email: string; phone: string; photo: string; accent: string }> = {
@@ -96,6 +96,9 @@ function TrainerDashboard({ trainerName }: { trainerName: string }) {
   type Tab = "dag" | "klienter" | "statistikk";
   const [tab, setTab] = useState<Tab>("dag");
   const [selectedDay, setSelectedDay] = useState(0);
+  const [toast, setToast] = useState("");
+  const loginShown = useRef(false);
+  useEffect(() => { if (!loginShown.current) { loginShown.current = true; setToast(`Logget inn som ${trainerName}`); setTimeout(() => setToast(""), 2500); } }, [trainerName]);
   const trainer = TRAINERS[trainerName]!;
   const classes = genClasses(trainerName);
   const today = new Date();
@@ -110,7 +113,7 @@ function TrainerDashboard({ trainerName }: { trainerName: string }) {
     { key: "statistikk", label: "Statistikk", icon: <IconChart /> },
   ];
 
-  function handleLogout() { try { sessionStorage.removeItem("bf_trainer"); } catch {} window.location.href = "/"; }
+  function handleLogout() { try { sessionStorage.removeItem("bf_trainer"); } catch {} window.location.href = "https://bergen-fitness.pages.dev"; }
 
   const allClients = [...new Set(classes.flatMap(c => c.attendees))].sort();
 
@@ -310,6 +313,7 @@ function TrainerDashboard({ trainerName }: { trainerName: string }) {
       </main>
 
       <style>{`@media (max-width: 768px) { .bf-sidebar { display: none !important; } }`}</style>
+      {toast && <div style={{ position: "fixed", bottom: "24px", left: "50%", transform: "translateX(-50%)", background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.4)", borderRadius: "10px", padding: "12px 24px", color: "#86efac", fontSize: "14px", fontWeight: 600, zIndex: 300, whiteSpace: "nowrap", backdropFilter: "blur(8px)" }}>{toast}</div>}
     </div>
   );
 }

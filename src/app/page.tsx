@@ -662,15 +662,15 @@ export default function BergenFitness() {
           <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '14px', marginBottom: '40px', maxWidth: '460px', marginLeft: 'auto', marginRight: 'auto' }}>Vi aksepterer alle de mest populaere betalingsmetodene slik at du kan betale slik det passer deg.</p>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px', flexWrap: 'wrap' }}>
             {[
-              { src: '/icons/Visa.png', alt: 'Visa', w: 72 },
-              { src: '/icons/MasterCard.png', alt: 'Mastercard', w: 64 },
-              { src: '/icons/KlarnaLogo.png', alt: 'Klarna', w: 80 },
-              { src: '/icons/ApplePay.png', alt: 'Apple Pay', w: 72 },
-              { src: '/icons/GooglePay.png', alt: 'Google Pay', w: 72 },
-              { src: '/icons/PayPal.png', alt: 'PayPal', w: 72 },
+              { src: '/icons/Visa.png', alt: 'Visa', w: 100 },
+              { src: '/icons/MasterCard.png', alt: 'Mastercard', w: 90 },
+              { src: '/icons/KlarnaLogo.png', alt: 'Klarna', w: 110 },
+              { src: '/icons/ApplePay.png', alt: 'Apple Pay', w: 110 },
+              { src: '/icons/GooglePay.png', alt: 'Google Pay', w: 110 },
+              { src: '/icons/PayPal.png', alt: 'PayPal', w: 110 },
             ].map(pm => (
-              <div key={pm.alt} style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '20px 28px', display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '120px', minHeight: '72px' }}>
-                <Image src={pm.src} alt={pm.alt} width={pm.w} height={48} style={{ objectFit: 'contain', filter: 'brightness(1.1)' }} />
+              <div key={pm.alt} style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '24px 32px', display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '140px', minHeight: '80px' }}>
+                <Image src={pm.src} alt={pm.alt} width={pm.w} height={64} style={{ objectFit: 'contain', filter: 'brightness(1.1)' }} />
               </div>
             ))}
           </div>
@@ -687,7 +687,7 @@ export default function BergenFitness() {
                 <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: '15px' }}>Bergen<span style={{ color: 'var(--orange)' }}>Fitness</span></span>
               </div>
               <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '13px', lineHeight: 1.7, marginBottom: '12px' }}>Bergens fremste treningsmiljo. Apent 24/7, 365 dager i aret.</p>
-              <span className="demo-badge">Fiktiv Demo-Side</span>
+              <span className="demo-badge">Demo</span>
             </div>
             <div>
               <div style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, marginBottom: '14px', fontSize: '13px', letterSpacing: '0.02em' }}>Hurtiglenker</div>
