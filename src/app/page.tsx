@@ -179,11 +179,13 @@ export default function BergenFitness() {
   const [bookedClasses, setBookedClasses] = useState<string[]>([]);
   const [bannerOpen, setBannerOpen] = useState(true);
   const [authModal, setAuthModal] = useState(false);
+  useEffect(() => { try { const u = sessionStorage.getItem('bf_user'); if (u) setLoggedInUser(JSON.parse(u)); } catch {} }, []);
   const [authMode, setAuthMode] = useState<'join' | 'signin'>('join');
   const [authName, setAuthName] = useState('');
   const [authEmail, setAuthEmail] = useState('');
   const [authPassword, setAuthPassword] = useState('');
   const [authDone, setAuthDone] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState<{ name: string; email: string } | null>(null);
   const [authErrors, setAuthErrors] = useState<{ name?: string; email?: string; password?: string }>({});
   const [trainerName, setTrainerName] = useState('');
   const [trainerEmail, setTrainerEmail] = useState('');
@@ -212,6 +214,10 @@ export default function BergenFitness() {
     if (Object.keys(errs).length) { setAuthErrors(errs); return; }
     setAuthErrors({});
     setAuthDone(true);
+    const user = { name: authMode === 'join' ? authName.trim() : authEmail.split('@')[0], email: authEmail.trim() };
+    setLoggedInUser(user);
+    try { sessionStorage.setItem('bf_user', JSON.stringify(user)); } catch {}
+    setTimeout(() => setAuthModal(false), 1500);
   };
 
   const handleBook = (cls: { name: string; trainer: string; time: string; spots: number }) => {
@@ -250,9 +256,7 @@ export default function BergenFitness() {
                     ? 'Demo: I produksjon opprettes kontoen din, 7-dagers gratisproven starter og du logges inn.'
                     : 'Demo: I produksjon godkjennes kontoen din og du logges inn.'}
                 </p>
-                <button onClick={() => setAuthModal(false)} style={{ marginTop: '24px', background: 'var(--orange)', color: '#fff', borderRadius: '8px', padding: '12px 32px', fontWeight: 700, fontSize: '15px', border: 'none', cursor: 'pointer' }}>
-                  Fortsett
-                </button>
+                <div style={{ marginTop: '16px', fontSize: '12px', color: 'rgba(255,255,255,0.4)' }}>Lukker automatisk...</div>
               </div>
             ) : (
               <>
@@ -424,7 +428,7 @@ export default function BergenFitness() {
           </div>
           <div className="hidden md:flex items-center gap-3">
             <span className="demo-badge">Demo</span>
-            <button onClick={() => openAuth('signin')} style={{ color: 'rgba(255,255,255,0.65)', fontSize: '13.5px', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}>Logg inn</button>
+            {loggedInUser ? <button onClick={() => { setLoggedInUser(null); try { sessionStorage.removeItem('bf_user'); } catch {} showToast('Logget ut!'); }} style={{ color: 'var(--orange)', fontSize: '13.5px', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>{loggedInUser.name} (Logg ut)</button> : <button onClick={() => openAuth('signin')} style={{ color: 'rgba(255,255,255,0.65)', fontSize: '13.5px', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}>Logg inn</button>}
             <button onClick={() => openAuth('join')} style={{ background: 'var(--orange)', color: '#fff', borderRadius: '6px', padding: '8px 20px', fontSize: '14px', fontWeight: 700 }}
               className="hover:opacity-90 transition-opacity">Bli Medlem</button>
           </div>
