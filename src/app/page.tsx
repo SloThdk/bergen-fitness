@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Menu, X, Zap, Clock, Users, ChevronRight, Check, Dumbbell, Heart, Flame, Trophy, ArrowRight, Phone, Mail, MapPin } from 'lucide-react';
+import { Menu, X, Zap, Clock, Users, ChevronRight, Check, Dumbbell, Heart, Flame, Trophy, ArrowRight, Phone, Mail, MapPin, User } from 'lucide-react';
+import UserDashboard from './components/UserDashboard';
 
 const NAV_LINKS = [['timer', 'Timer'], ['treningsabonnement', 'Abonnement'], ['trenere', 'Trenere'], ['timeplan', 'Timeplan'], ['kontakt', 'Kontakt']];
 
@@ -196,6 +197,7 @@ export default function BergenFitness() {
   const [trainerModal, setTrainerModal] = useState<typeof TRENERE[0] | null>(null);
   const [trainerBooked, setTrainerBooked] = useState(false);
   const [toast, setToast] = useState('');
+  const [dashboardOpen, setDashboardOpen] = useState(false);
 
   const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(''), 3500); };
 
@@ -427,11 +429,21 @@ export default function BergenFitness() {
                 className="hover:text-white transition-colors">{label}</button>
             ))}
           </div>
-          <div className="hidden md:flex items-center gap-3">
-            <span className="demo-badge">Demo</span>
-            {loggedInUser ? <button onClick={() => { setLoggedInUser(null); try { sessionStorage.removeItem('bf_user'); } catch {} showToast('Logget ut!'); }} style={{ color: 'var(--orange)', fontSize: '13.5px', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>{loggedInUser.name} (Logg ut)</button> : <button onClick={() => openAuth('signin')} style={{ color: 'rgba(255,255,255,0.65)', fontSize: '13.5px', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}>Logg inn</button>}
-            <button onClick={() => openAuth('join')} style={{ background: 'var(--orange)', color: '#fff', borderRadius: '6px', padding: '8px 20px', fontSize: '14px', fontWeight: 700 }}
-              className="hover:opacity-90 transition-opacity">Bli Medlem</button>
+          <div className="hidden md:flex items-center gap-4">
+            {loggedInUser ? (
+              <button onClick={() => setDashboardOpen(true)} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(232,93,4,0.1)', border: '1px solid rgba(232,93,4,0.3)', borderRadius: '100px', padding: '6px 14px 6px 6px', cursor: 'pointer' }}>
+                <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--orange), var(--orange-dark))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ color: '#fff', fontWeight: 700, fontSize: '13px' }}>{loggedInUser.name.charAt(0).toUpperCase()}</span>
+                </div>
+                <span style={{ color: '#fff', fontSize: '13px', fontWeight: 600 }}>{loggedInUser.name}</span>
+              </button>
+            ) : (
+              <>
+                <button onClick={() => openAuth('signin')} style={{ color: 'rgba(255,255,255,0.65)', fontSize: '13.5px', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}>Logg inn</button>
+                <button onClick={() => openAuth('join')} style={{ background: 'var(--orange)', color: '#fff', borderRadius: '6px', padding: '8px 20px', fontSize: '14px', fontWeight: 700 }}
+                  className="hover:opacity-90 transition-opacity">Bli Medlem</button>
+              </>
+            )}
           </div>
           <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}>
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -442,7 +454,16 @@ export default function BergenFitness() {
             {NAV_LINKS.map(([id, label]) => (
               <button key={id} onClick={() => scrollTo(id)} style={{ color: 'rgba(255,255,255,0.75)', fontSize: '15px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>{label}</button>
             ))}
-            <button onClick={() => { openAuth('join'); setMenuOpen(false); }} style={{ background: 'var(--orange)', color: '#fff', borderRadius: '6px', padding: '10px', fontSize: '14px', fontWeight: 700, border: 'none' }}>Bli Medlem</button>
+            {loggedInUser ? (
+              <button onClick={() => { setDashboardOpen(true); setMenuOpen(false); }} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(232,93,4,0.1)', border: '1px solid rgba(232,93,4,0.3)', borderRadius: '8px', padding: '10px 14px' }}>
+                <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--orange), var(--orange-dark))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ color: '#fff', fontWeight: 700, fontSize: '13px' }}>{loggedInUser.name.charAt(0).toUpperCase()}</span>
+                </div>
+                <span style={{ color: '#fff', fontSize: '14px', fontWeight: 600 }}>Min konto</span>
+              </button>
+            ) : (
+              <button onClick={() => { openAuth('join'); setMenuOpen(false); }} style={{ background: 'var(--orange)', color: '#fff', borderRadius: '6px', padding: '10px', fontSize: '14px', fontWeight: 700, border: 'none' }}>Bli Medlem</button>
+            )}
           </div>
         )}
       </nav>
@@ -574,7 +595,7 @@ export default function BergenFitness() {
                     </li>
                   ))}
                 </ul>
-                <button onClick={() => openAuth('join')}
+                <button onClick={() => { if (loggedInUser) { setDashboardOpen(true); } else { openAuth('join'); } }}
                   style={{ width: '100%', padding: '13px', background: plan.highlight ? 'var(--orange)' : 'rgba(232,93,4,0.9)', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 700, border: 'none', cursor: 'pointer' }}
                   className="hover:opacity-90 transition-opacity">
                   {plan.cta}
@@ -718,6 +739,20 @@ export default function BergenFitness() {
           </div>
         </div>
       </footer>
+
+      {/* USER DASHBOARD */}
+      {dashboardOpen && loggedInUser && (
+        <UserDashboard
+          user={loggedInUser}
+          onClose={() => setDashboardOpen(false)}
+          onLogout={() => {
+            setLoggedInUser(null);
+            setDashboardOpen(false);
+            try { sessionStorage.removeItem('bf_user'); } catch {}
+            showToast('Logget ut!');
+          }}
+        />
+      )}
 
       {/* FLOATING BUILT BY */}
       <a href="https://sloth-studio.pages.dev" target="_blank" rel="noopener noreferrer"

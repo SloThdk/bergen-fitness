@@ -141,3 +141,6 @@ html, body {
   .brand-panel { display: none !important; }
   .nav-links-desktop { display: none !important; }
 }
+
+/* Toggle switches */
+button { -webkit-tap-highlight-color: transparent; }
