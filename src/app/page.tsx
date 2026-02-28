@@ -654,6 +654,27 @@ export default function BergenFitness() {
         </div>
       </section>
 
+      {/* ACCESS LEVELS */}
+      <section style={{ padding: '80px 0', background: 'var(--navy)' }}>
+        <div className="max-w-7xl mx-auto px-6" style={{ textAlign: 'center' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', marginBottom: '16px', background: 'rgba(232,93,4,0.08)', border: '1px solid rgba(232,93,4,0.2)', borderRadius: '4px', padding: '3px 10px' }}>
+            <span style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'var(--orange)' }}>DEMO</span>
+          </div>
+          <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 800, color: '#fff', marginBottom: '8px' }}>Utforsk hvert tilgangsniva</h2>
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '40px', maxWidth: '500px', marginLeft: 'auto', marginRight: 'auto' }}>Se hvordan systemet fungerer for trenere. Velg en rolle og oppdag portalen.</p>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            <a href="/trener" style={{ display: 'block', background: 'var(--navy-mid)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px', padding: '28px 32px', textDecoration: 'none', textAlign: 'center', width: '260px', transition: 'all 0.15s' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'rgba(232,93,4,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <div style={{ fontFamily: 'var(--font-syne)', fontSize: '16px', fontWeight: 700, color: '#fff', marginBottom: '6px' }}>Trenerportal</div>
+              <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '12px', lineHeight: 1.5, margin: 0 }}>Se ukeoversikt, dine klienter, statistikk og belegg for alle timer.</p>
+              <div style={{ marginTop: '14px', color: 'var(--orange)', fontSize: '12px', fontWeight: 600 }}>Apne portal &rarr;</div>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer style={{ background: 'var(--navy-mid)', borderTop: '1px solid rgba(255,255,255,0.05)', padding: '48px 0 32px' }}>
         <div className="max-w-7xl mx-auto px-6">
